@@ -6,7 +6,7 @@ mongoose.Promise = global.Promise;
 
 const db={}
 db.mongoose = mongoose;
-db.url = `mongodb://${db.Config.HOST}:${db.Config.PORT}/${dbConfig.DB}`
+db.url = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`
 db.tasks = Task(mongoose);
 
 export default db;
