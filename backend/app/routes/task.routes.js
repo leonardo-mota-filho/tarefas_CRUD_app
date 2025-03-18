@@ -11,13 +11,13 @@ export default (app) => {
     router.get("/", tasks.findAll);
 
     //Buscar uma Task por ID
-    router.get("/", tasks.findOne);
+    router.get("/:id", tasks.findOne);
 
     //Atualizar Task por ID
-    router.put("/", tasks.update);
+    router.put("/:id", tasks.update);
 
     //Apagar Task por ID
-    router.delete("/", tasks.deleteOne);
+    router.delete("/:id", tasks.deleteOne);
 
     //Apagar todas as Tasks
     router.delete("/", tasks.deleteAll);

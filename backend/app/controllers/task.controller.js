@@ -14,7 +14,7 @@ export const create = (req,res) => {
 
     //Criar uma Task
     const task = new Task({
-        name: req.body.name,
+        title: req.body.title,
         description: req.body.description,
         published: req.body.published ? req.body.published : false
     })
@@ -36,8 +36,8 @@ export const create = (req,res) => {
 //Buscar todas as Tasks
 export const findAll = (req,res) => {
     //Permitir filtrar tarefas por um parâmetro da query
-    const name = req.query.name;
-    const condition = name ? {name: {[Op.like]: `%${title}%`}} : null;
+    const title = req.query.title;
+    const condition = title ? {title: {[Op.like]: `%${title}%`}} : null;
 
     Task.find(condition)
         .then(data => {

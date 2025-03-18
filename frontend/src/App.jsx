@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import {Routes, Route, Link, BrowserRouter} from "react-router-dom";
 import TaskList from "./pages/TaskList";
@@ -8,8 +5,6 @@ import AddTask from "./pages/AddTask";
 import Task from "./pages/Task";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <BrowserRouter>
       <div>
