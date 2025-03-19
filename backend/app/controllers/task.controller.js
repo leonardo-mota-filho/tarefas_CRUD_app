@@ -46,7 +46,7 @@ export const findAll = (req,res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Algo falhou ao criar a Task."
+                    err.message || "Algo falhou ao encontrar as Tasks."
             });
         });
 };

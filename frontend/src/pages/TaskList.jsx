@@ -63,7 +63,7 @@ function TaskList(){
 
     return (
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* LEFT COLUMN: SEARCH + LIST */}
+          {/* COLUNA ESQ: PESQUISA E LISTA DE TASKS */}
           <div className="flex-1">
             <div className="flex mb-4">
               <input
@@ -106,7 +106,7 @@ function TaskList(){
             </button>
           </div>
    
-          {/* RIGHT COLUMN: DETAILS */}
+          {/* COLUNA DIR: DETALHES */}
           <div className="flex-1">
             {currentTask ? (
                 <div className="p-4 bg-white rounded shadow">

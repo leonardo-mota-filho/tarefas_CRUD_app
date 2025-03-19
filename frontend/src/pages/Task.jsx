@@ -1,73 +1,153 @@
-import React, {useState} from "react";
+import {useState,useEffect} from "react";
+import {useParams,useNavigate} from "react-router-dom";
 import TaskService from "../services/task.service";
 
-function AddTask(){
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [submitted, setSubmitted] = useState(false);
+function Task(){
+    const {id} = useParams();
+    const navigate = useNavigate();
 
-    const saveTask = () => {
-        const data = {title,description};
-        TaskService.create(data)
+    const [currentTask, setCurrentTask] = useState({
+        id: null,
+        title: "",
+        description: "",
+        published: false
+    });
+    const [message,setMessage] = useState("");
+
+    const getTask = (id) => {
+        TaskService.get(id)
             .then((response) => {
+                setCurrentTask(response.data);
                 console.log(response.data);
-                setSubmitted(true);
             })
             .catch((e) => {
                 console.log(e);
-            })
-    }
+            });
+    };
 
-    const newTask = () => {
-        setTitle("");
-        setDescription("");
-        setSubmitted(false);
-    }
+    useEffect(() => {
+        if (id) getTask(id);
+    }, [id]);
+
+    const handleInputChange = (event) => {
+        const{name,value} = event.target;
+        setCurrentTask({...currentTask,[name]:value});
+    };
+
+    const updatePublished = (status) => {
+        const data = {
+            ...currentTask,
+            published: status
+        };
+        TaskService.update(currentTask.id, data)
+        .then((response) => {
+          setCurrentTask({ ...currentTask, published: status });
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    };
+
+    const updateTask = () => {
+        TaskService.update(currentTask.id,currentTask)
+            .then((response) => {
+                console.log(response.data);
+                setMessage("A Task foi atualizada com sucesso!");
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    };
+
+    const deleteTask = () => {
+        TaskService.remove(currentTask.id)
+            .then((response) => {
+                console.log(response.data);
+                navigate("/tasks");
+            })
+            .catch((e)=>{
+                console.log(e);
+            });
+    };
 
     return (
-        <div className="max-w-sm mx-auto p-4 bg-white rounded shadow">
-            {submitted ? (
-                <div>
-                    <h4 className="font-bold text-green-600 mb-4">
-                        Task adicionada com sucesso!
-                    </h4>
-                    <button className="bg-blue-500 text-white px-3 py-1 rounded" onClick={newTask}>
-                        Adicionar outra
-                    </button>
-                </div>
-            ) : (
-                <div>
-                    <h4 className="font-bold text-xl mb-2">
-                        Adicionar Task
-                    </h4>
-                    <div className="mb-2">
-                        <label className="block mb-1 font-medium">Título</label>
-                        <input
-                            type="text"
-                            className="border border-gray-300 rounded w-full px-2 py-1"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-2">
-                        <label className="block mb-1 font-medium">Descrição</label>
-                        <input
-                            type="text"
-                            className="border border-gray-300 rounded w-full px-2 py-1"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
-                    </div>
+        <div>
+            {currentTask ? (
+                <div className="max-w-sm mx-auto p-4 bg-white rounded shadow">
+                <h4 className="font-bold text-xl mb-2">Editar Task</h4>
+                <div className="mb-2">
+                    <label className="block font-medium" htmlFor="title">
+                    Título
+                    </label>
+                    <input
+                        type="text"
+                        className="border border-gray-300 rounded w-full px-2 py-1"
+                        id="title"
+                        name="title"
+                        value={currentTask.title}
+                        onChange={handleInputChange}
+                    />
+              </div>
+              <div className="mb-2">
+                <label className="block font-medium" htmlFor="description">
+                  Descrição
+                </label>
+                <input
+                    type="text"
+                    className="border border-gray-300 rounded w-full px-2 py-1"
+                    id="description"
+                    name="description"
+                    value={currentTask.description}
+                    onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="mb-2">
+                <strong>Status:</strong> {currentTask.published ? "Publicada" : "Pendente"}
+              </div>
+ 
+              <div className="space-x-2 mt-2">
+                {currentTask.published ? (
                     <button
-                        className="bg-green-500 text-white px-3 py-1 rounded mt-2"
-                        onClick={saveTask}
+                        className="bg-blue-500 text-white px-3 py-1 rounded"
+                        onClick={() => updatePublished(false)}
                     >
-                        Salvar
+                      Cancelar Publicação
                     </button>
-                </div>
-            )}
+                ) : (
+                    <button
+                        className="bg-blue-500 text-white px-3 py-1 rounded"
+                        onClick={() => updatePublished(true)}
+                    >
+                      Publicar
+                    </button>
+                )}
+ 
+                <button
+                    className="bg-red-500 text-white px-3 py-1 rounded"
+                    onClick={deleteTask}
+                >
+                  Deletar
+                </button>
+ 
+                <button
+                    className="bg-green-500 text-white px-3 py-1 rounded"
+                    onClick={updateTask}
+                >
+                  Atualizar
+                </button>
+              </div>
+ 
+              {message && <p className="text-green-600 mt-2">{message}</p>}
+            </div>
+        ) : (
+            <div>
+              <p>Carregando Task...</p>
+            </div>
+        )}
         </div>
     );
 }
 
-export default AddTask;
+export default Task;
