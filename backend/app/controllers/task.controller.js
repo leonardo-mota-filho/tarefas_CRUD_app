@@ -60,6 +60,12 @@ export const findOne = (req,res) => {
         .then(data => {
             if (!data)
                 res.status(404).send({message: `Task não encontrada com o id ${id}`});
+            else res.send(data);
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .send({message: `Erro ao recuperar Task com id = ${id}`})
         });
 };
 
@@ -89,14 +95,18 @@ export const deleteOne = (req,res) => {
     const id = req.params.id;
 
     //Apagar Task com ID especificado
-    Task.findByIdAndRemove(id)
+    Task.findByIdAndDelete(id)
         .then(data => {
             if(!data){
                 res.status(404).send({
                     message: `Não é possível remover Task com o id ${id}. 
                     Talvez a Task não tenha sido encontrada!`
                 });
-            } else res.send({message: "Task removida com sucesso."});    
+            } else {
+                res.send({
+                    message: "Task removida com sucesso."
+                });    
+            }
         })
         .catch(err => {
             res.status(500).send({

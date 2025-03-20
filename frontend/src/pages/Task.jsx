@@ -3,7 +3,7 @@ import {useParams,useNavigate} from "react-router-dom";
 import TaskService from "../services/task.service";
 
 function Task(){
-    const {id} = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
 
     const [currentTask, setCurrentTask] = useState({
@@ -56,6 +56,7 @@ function Task(){
                 setMessage("A Task foi atualizada com sucesso!");
             })
             .catch((e) => {
+                console.log(id);
                 console.log(e);
             });
     };
@@ -63,10 +64,12 @@ function Task(){
     const deleteTask = () => {
         TaskService.remove(currentTask.id)
             .then((response) => {
+                console.log("REMOVEU");
                 console.log(response.data);
                 navigate("/tasks");
             })
             .catch((e)=>{
+                console.log("removeu nn");
                 console.log(e);
             });
     };
