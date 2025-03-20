@@ -37,7 +37,7 @@ export const create = (req,res) => {
 export const findAll = (req,res) => {
     //Permitir filtrar tarefas por um parâmetro da query
     const title = req.query.title;
-    const condition = title ? {title: {[Op.like]: `%${title}%`}} : null;
+    const condition = title ? {title: new RegExp(title,'i')} : null;
 
     Task.find(condition)
         .then(data => {
