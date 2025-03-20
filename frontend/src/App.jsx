@@ -9,13 +9,13 @@ function App() {
     <BrowserRouter>
       <div>
         {/*NAVBAR*/}
-          <nav className="bg-blue-600 p-4 text-white">
+          <nav className="bg-purple-600 p-4 text-white">
             <div className="flex space-x-4">
               <Link to="/tasks" className="hover:text-gray-300">
               Tasks
               </Link>
               <Link to="/add" className="hover:text-gray-300">
-              Add
+              Adicionar
               </Link>
             </div>
           </nav>

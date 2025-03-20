@@ -74,7 +74,7 @@ function TaskList(){
                   onChange={onChangeSearchTitle}
               />
               <button
-                  className="bg-blue-500 text-white px-4 py-1 rounded-r"
+                  className="bg-purple-500 text-white px-4 py-1 rounded-r"
                   onClick={findByTitle}
               >
                 Buscar
@@ -88,7 +88,7 @@ function TaskList(){
                       <li
                           className={
                               "px-4 py-2 cursor-pointer " +
-                              (index === currentIndex ? "bg-blue-100" : "")
+                              (index === currentIndex ? "bg-purple-100" : "")
                           }
                           onClick={() => setActiveTask(task, index)}
                           key={index}

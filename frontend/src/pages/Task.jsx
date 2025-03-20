@@ -113,14 +113,14 @@ function Task(){
               <div className="space-x-2 mt-2">
                 {currentTask.published ? (
                     <button
-                        className="bg-blue-500 text-white px-3 py-1 rounded"
+                        className="bg-purple-500 text-white px-3 py-1 rounded"
                         onClick={() => updatePublished(false)}
                     >
                       Cancelar Publicação
                     </button>
                 ) : (
                     <button
-                        className="bg-blue-500 text-white px-3 py-1 rounded"
+                        className="bg-purple-500 text-white px-3 py-1 rounded"
                         onClick={() => updatePublished(true)}
                     >
                       Publicar
@@ -135,7 +135,7 @@ function Task(){
                 </button>
  
                 <button
-                    className="bg-green-500 text-white px-3 py-1 rounded"
+                    className="bg-purple-500 text-white px-3 py-1 rounded"
                     onClick={updateTask}
                 >
                   Atualizar

@@ -31,7 +31,7 @@ function AddTask(){
                     <h4 className="font-bold text-green-600 mb-4">
                         Task adicionada com sucesso!
                     </h4>
-                    <button className="bg-blue-500 text-white px-3 py-1 rounded" onClick={newTask}>
+                    <button className="bg-purple-500 text-white px-3 py-1 rounded" onClick={newTask}>
                         Adicionar outra
                     </button>
                 </div>
@@ -59,7 +59,7 @@ function AddTask(){
                         />
                     </div>
                     <button
-                        className="bg-green-500 text-white px-3 py-1 rounded mt-2"
+                        className="bg-purple-500 text-white px-3 py-1 rounded mt-2"
                         onClick={saveTask}
                     >
                         Salvar
