@@ -10,7 +10,7 @@ function Task(){
         id: null,
         title: "",
         description: "",
-        published: false
+        completed: false
     });
     const [message,setMessage] = useState("");
 
@@ -34,14 +34,14 @@ function Task(){
         setCurrentTask({...currentTask,[name]:value});
     };
 
-    const updatePublished = (status) => {
+    const updateCompleted = (status) => {
         const data = {
             ...currentTask,
-            published: status
+            completed: status
         };
         TaskService.update(currentTask.id, data)
         .then((response) => {
-          setCurrentTask({ ...currentTask, published: status });
+          setCurrentTask({ ...currentTask, completed: status });
           console.log(response.data);
         })
         .catch((e) => {
@@ -107,23 +107,23 @@ function Task(){
               </div>
 
               <div className="mb-2">
-                <strong>Status:</strong> {currentTask.published ? "Publicada" : "Pendente"}
+                <strong>Status:</strong> {currentTask.completed ? "Completada" : "Pendente"}
               </div>
  
               <div className="space-x-2 mt-2">
-                {currentTask.published ? (
+                {currentTask.completed ? (
                     <button
                         className="bg-purple-500 text-white px-3 py-1 rounded"
-                        onClick={() => updatePublished(false)}
+                        onClick={() => updateCompleted(false)}
                     >
-                      Cancelar Publicação
+                      Tornar Pendente
                     </button>
                 ) : (
                     <button
                         className="bg-purple-500 text-white px-3 py-1 rounded"
-                        onClick={() => updatePublished(true)}
+                        onClick={() => updateCompleted(true)}
                     >
-                      Publicar
+                      Completar
                     </button>
                 )}
  

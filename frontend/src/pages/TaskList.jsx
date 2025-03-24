@@ -121,7 +121,7 @@ function TaskList(){
                   </div>
                   <div className="mb-2">
                     <strong>Status: </strong>
-                    {currentTask.published ? "Publicado" : "Pendente"}
+                    {currentTask.completed ? "Completada" : "Pendente"}
                   </div>
    
                   <Link
