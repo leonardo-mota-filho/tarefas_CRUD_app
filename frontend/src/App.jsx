@@ -3,6 +3,8 @@ import {Routes, Route, Link, BrowserRouter} from "react-router-dom";
 import TaskList from "./pages/TaskList";
 import AddTask from "./pages/AddTask";
 import Task from "./pages/Task";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         {/*ROUTES*/}
         <div className="container mx-auto mt-8 px-4">
           <Routes>
+            <Route path='/login' element={<Login/>}/>
+            <Route path='/register' element={<Register/>}/>
             <Route path='/' element={<TaskList/>}/>
             <Route path='/tasks' element={<TaskList/>}/>
             <Route path='/add' element={<AddTask/>}/>
