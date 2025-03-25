@@ -6,6 +6,7 @@ export default (app) => {
 
     router.post("/register",users.create);
     router.post("/login",users.login);
+    router.post("/profile",users.getUser);
 
     app.use('/api',router);
 }

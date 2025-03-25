@@ -15,7 +15,12 @@ const authenticateUser = (data) => {
     return http.post("/login",data);
 }
 
+const getUser = (data) => {
+    return http.post("/profile",data);
+}
+
 export default {
     createUser,
-    authenticateUser
+    authenticateUser,
+    getUser
 };

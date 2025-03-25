@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import UserService from "../services/user.service";
 import axios from 'axios'
 
-function Login(){
+function Login({setLoggedInUser}){
 
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
@@ -15,6 +15,7 @@ function Login(){
             .then((response) => {
                 if(response.data["result"] == true){
                     console.log("Login Realizado!")
+                    setLoggedInUser(username);
                 } else{
                     console.log("Usuário e/ou senha incorretos.");
                     setWarning(true);

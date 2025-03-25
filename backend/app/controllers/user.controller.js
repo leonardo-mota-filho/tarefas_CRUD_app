@@ -31,6 +31,21 @@ export const create = (req,res) =>  {
         });
 }
 
+export const getUser = (req,res) => {
+    const un = req.body.username;
+
+    User.find({username: un})
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Algo falhou ao tentar encontrar o usuário."
+            });
+        })
+}
+
 export const login = (req,res) => {
     const un = req.body.username;
     const pw = req.body.password;
@@ -39,10 +54,10 @@ export const login = (req,res) => {
         .then(data => {
             console.log(data);
             if (data.length == 0){
-                res.send({result: false});
+                res.send({"result": false});
             }
             else {
-                res.send({result: true});
+                res.send({"result": true});
             }
             
         })
