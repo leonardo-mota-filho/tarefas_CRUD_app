@@ -7,6 +7,7 @@ function Login(){
 
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
+    const [warning, setWarning] = useState(false);
 
     const handleLogin = () => {
         const data = {username,password}
@@ -16,6 +17,7 @@ function Login(){
                     console.log("Login Realizado!")
                 } else{
                     console.log("Usuário e/ou senha incorretos.");
+                    setWarning(true);
                 }
             })
             .catch((e) => {
@@ -36,7 +38,7 @@ function Login(){
                         type="text"
                         className="border border-gray-300 rounded w-full px-2 py-1"
                         value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        onChange={(e) => (setUsername(e.target.value),setWarning(false))}
                     />
                 </div>
                 <div className="mb-2">
@@ -46,9 +48,18 @@ function Login(){
                         type="text"
                         className="border border-gray-300 rounded w-full px-2 py-1"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => (setPassword(e.target.value),setWarning(false))}
                     />
                 </div>
+                {warning ? (
+                    <div>
+                        <h4 className="font-bold text-red-600 mb-4">
+                        Usuário e/ou senha incorretos.
+                    </h4>
+                    </div>
+                ) : (
+                    <div></div>
+                )}
                 <button
                     className="bg-purple-500 text-white px-3 py-1 rounded mt-2"
                     onClick={handleLogin}
