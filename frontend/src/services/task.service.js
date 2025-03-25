@@ -7,12 +7,12 @@ const http = axios.create({
     }
 });
 
-const getAll = () => {
-    return http.get("/tasks");
+const getAll = (user) => {
+    return http.get(`/tasks?user=${user}`);
 };
 
-const findAllCompleted = () => {
-    return http.get("/tasks/completed");
+const findAllCompleted = (user) => {
+    return http.get(`/tasks/completed?user=${user}`);
 };
 
 const get = (id) => {
@@ -31,12 +31,12 @@ const remove = (id) => {
     return http.delete(`/tasks/${id}`);
 };
 
-const removeAll = () => {
-    return http.delete(`/tasks`);
+const removeAll = (user) => {
+    return http.delete(`/tasks?user=${user}`);
 }
 
-const findByTitle = (title) => {
-    return http.get(`/tasks?title=${title}`);
+const findByTitle = (title,user) => {
+    return http.get(`/tasks?title=${title}?user=${user}`);
 };
 
 

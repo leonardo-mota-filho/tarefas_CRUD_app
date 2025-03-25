@@ -14,6 +14,7 @@ export const create = (req,res) => {
 
     //Criar uma Task
     const task = new Task({
+        username: req.body.username,
         title: req.body.title,
         description: req.body.description,
         completed: req.body.completed ? req.body.completed : false
@@ -36,9 +37,9 @@ export const create = (req,res) => {
 //Buscar todas as Tasks
 export const findAll = (req,res) => {
     //Permitir filtrar tarefas por um parâmetro da query
+    const user = req.query.user;
     const title = req.query.title;
-    const condition = title ? {title: new RegExp(title,'i')} : null;
-
+    const condition = title ? {title: new RegExp(title,'i'), username:user} : {username:user};
     Task.find(condition)
         .then(data => {
             res.send(data);
@@ -54,7 +55,7 @@ export const findAll = (req,res) => {
 //Achar uma Task via ID
 export const findOne = (req,res) => {
     const id = req.params.id;
-
+    
     //Achar Task por chave primária
     Task.findById(id)
         .then(data => {
@@ -117,7 +118,8 @@ export const deleteOne = (req,res) => {
 
 //Apaga todas as Tasks
 export const deleteAll = (req,res) => {
-    Task.deleteMany({})
+    const user = req.query.user;
+    Task.deleteMany({username: user})
         .then(data => {
             res.send({
                 message: `${data.deletedCount} Tasks foram removidas com sucesso!`
@@ -133,7 +135,8 @@ export const deleteAll = (req,res) => {
 
 //Encontrar todas as Tasks completadas
 export const findAllCompleted = (req,res) => {
-    Task.find({completed: true})
+    const user = req.query.user;
+    Task.find({completed: true, username: user})
         .then(data => {
             res.send(data);
         })

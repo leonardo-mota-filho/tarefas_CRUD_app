@@ -14,7 +14,7 @@ function AddTask({loggedInUser}){
       }, [loggedInUser]);
 
     const saveTask = () => {
-        const data = {title,description};
+        const data = {title,description, username: loggedInUser};
         TaskService.create(data)
             .then((response) => {
                 console.log(response.data);

@@ -1,6 +1,7 @@
 export default (mongoose) => {
     let schema = mongoose.Schema(
         {
+            username: String,
             title: String,
             description: String,
             completed: Boolean

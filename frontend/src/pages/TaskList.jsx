@@ -31,7 +31,7 @@ function TaskList({loggedInUser}){
         findAllCompleted();
       }
       else{
-        TaskService.getAll()
+        TaskService.getAll(loggedInUser)
             .then((response) => {
                 setTasks(response.data);
                 console.log(response.data);
@@ -43,13 +43,12 @@ function TaskList({loggedInUser}){
     };
 
     const findAllCompleted = () => {
-      TaskService.findAllCompleted()
+      TaskService.findAllCompleted(loggedInUser)
           .then((response) => {
               setTasks(response.data);
               console.log(response.data);
           })
           .catch((e) => {
-            console.log("AAAA")
             console.log(e);
         });
   }
@@ -66,7 +65,7 @@ function TaskList({loggedInUser}){
     };
 
     const removeAllTasks = () => {
-        TaskService.removeAll()
+        TaskService.removeAll(loggedInUser)
         .then((response) => {
             console.log(response.data);
             refreshList();
@@ -78,7 +77,7 @@ function TaskList({loggedInUser}){
 
     const findByTitle = () => {
       setCompletedSearch(false);
-      TaskService.findByTitle(searchTitle)
+      TaskService.findByTitle(searchTitle,loggedInUser)
         .then((response) => {
           setTasks(response.data);
           setCurrentTask(null);
