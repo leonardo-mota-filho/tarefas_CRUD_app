@@ -7,15 +7,25 @@ function TaskList(){
     const [currentTask,setCurrentTask] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [searchTitle, setSearchTitle] = useState("");
+    const [completedSearch, setCompletedSearch] = useState(false);
+
     useEffect(() => {
         retrieveTasks();
     }, []);
+
+    useEffect(()=>{
+      refreshList();
+    },[completedSearch])
 
     const onChangeSearchTitle = (e) => {
         setSearchTitle(e.target.value);
     };
 
     const retrieveTasks = () => {
+      if (completedSearch) {
+        findAllCompleted();
+      }
+      else{
         TaskService.getAll()
             .then((response) => {
                 setTasks(response.data);
@@ -24,7 +34,20 @@ function TaskList(){
             .catch((e) => {
                 console.log(e);
             });
+      }
     };
+
+    const findAllCompleted = () => {
+      TaskService.findAllCompleted()
+          .then((response) => {
+              setTasks(response.data);
+              console.log(response.data);
+          })
+          .catch((e) => {
+            console.log("AAAA")
+            console.log(e);
+        });
+  }
 
     const refreshList = () => {
         retrieveTasks();
@@ -49,16 +72,18 @@ function TaskList(){
     };
 
     const findByTitle = () => {
-        TaskService.findByTitle(searchTitle)
-            .then((response) => {
-                setTasks(response.data);
-                setCurrentTask(null);
-                setCurrentIndex(-1);
-                console.log(response.data);
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+      setCompletedSearch(false);
+      TaskService.findByTitle(searchTitle)
+        .then((response) => {
+          setTasks(response.data);
+          setCurrentTask(null);
+          setCurrentIndex(-1);
+          console.log(response.data);
+      })
+      .catch((e) => {
+          console.log(e);
+      });
+       
     };
 
     return (
@@ -79,6 +104,11 @@ function TaskList(){
               >
                 Buscar
               </button>
+            </div>
+
+            <div className="flex items-center mb-4">
+              <input id="default-checkbox" type="checkbox" checked={completedSearch} onChange={() => (setCompletedSearch(!completedSearch), refreshList())} className="accent-purple-500"/>
+              <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-black-900 dark:text-white-300">Mostrar apenas concluídas</label>
             </div>
    
             <h4 className="font-bold text-lg mb-2">Lista de Tasks</h4>

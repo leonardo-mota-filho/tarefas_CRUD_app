@@ -11,6 +11,10 @@ const getAll = () => {
     return http.get("/tasks");
 };
 
+const findAllCompleted = () => {
+    return http.get("/tasks/completed");
+};
+
 const get = (id) => {
     return http.get(`/tasks/${id}`);
 };
@@ -35,6 +39,7 @@ const findByTitle = (title) => {
     return http.get(`/tasks?title=${title}`);
 };
 
+
 export default {
     getAll,
     get,
@@ -43,4 +48,5 @@ export default {
     remove,
     removeAll,
     findByTitle,
+    findAllCompleted,
 };
