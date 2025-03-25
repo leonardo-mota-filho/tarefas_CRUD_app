@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import UserService from "../services/user.service";
 import axios from 'axios'
 
 function Login({setLoggedInUser}){
 
+    const navigate = useNavigate();
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
     const [warning, setWarning] = useState(false);
@@ -16,6 +17,7 @@ function Login({setLoggedInUser}){
                 if(response.data["result"] == true){
                     console.log("Login Realizado!")
                     setLoggedInUser(username);
+                    navigate("/profile");
                 } else{
                     console.log("Usuário e/ou senha incorretos.");
                     setWarning(true);

@@ -33,10 +33,9 @@ export const create = (req,res) =>  {
 
 export const getUser = (req,res) => {
     const un = req.body.username;
-
     User.find({username: un})
         .then(data => {
-            res.send(data);
+            res.send(data[0]);
         })
         .catch(err => {
             res.status(500).send({
@@ -52,7 +51,6 @@ export const login = (req,res) => {
 
     User.find({username: un, password: pw})
         .then(data => {
-            console.log(data);
             if (data.length == 0){
                 res.send({"result": false});
             }
