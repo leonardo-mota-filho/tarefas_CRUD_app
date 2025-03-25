@@ -5,25 +5,25 @@ export default (app) => {
     let router = express.Router();
 
     //Criar nova Task
-    router.post("/", tasks.create);
+    router.post("/tasks/", tasks.create);
 
     //Buscar todas as Tasks
-    router.get("/", tasks.findAll);
+    router.get("/tasks/", tasks.findAll);
+
+    //Buscar todas as Tasks completadas
+    router.get("/tasks/completed", tasks.findAllCompleted);
 
     //Buscar uma Task por ID
-    router.get("/:id", tasks.findOne);
+    router.get("/tasks/:id", tasks.findOne);
 
     //Atualizar Task por ID
-    router.put("/:id", tasks.update);
+    router.put("/tasks/:id", tasks.update);
 
     //Apagar Task por ID
-    router.delete("/:id", tasks.deleteOne);
+    router.delete("/tasks/:id", tasks.deleteOne);
 
     //Apagar todas as Tasks
-    router.delete("/", tasks.deleteAll);
+    router.delete("/tasks/", tasks.deleteAll);
 
-    //Buscar todas as Tasks publicadas
-    router.get("/published", tasks.findAllPublished);
-
-    app.use('/api/tasks',router);
+    app.use('/api',router);
 }

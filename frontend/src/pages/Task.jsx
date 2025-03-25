@@ -2,7 +2,7 @@ import {useState,useEffect} from "react";
 import {useParams,useNavigate} from "react-router-dom";
 import TaskService from "../services/task.service";
 
-function Task(){
+function Task({loggedInUser}){
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -13,6 +13,10 @@ function Task(){
         completed: false
     });
     const [message,setMessage] = useState("");
+
+    useEffect(() => {
+        if (loggedInUser == null){navigate("/login")};
+      }, [loggedInUser]);
 
     const getTask = (id) => {
         TaskService.get(id)

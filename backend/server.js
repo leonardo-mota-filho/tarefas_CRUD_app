@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import db from "./app/models/index.js";
 import taskRoutes from "./app/routes/task.routes.js";
+import userRoutes from "./app/routes/user.routes.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.get("/", (req,res) => {
 
 //Routes
 taskRoutes(app);
+userRoutes(app);
 
 //Sicronizar db
 db.mongoose.connect(db.url)

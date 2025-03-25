@@ -1,9 +1,8 @@
 export default (mongoose) => {
     let schema = mongoose.Schema(
         {
-            title: String,
-            description: String,
-            completed: Boolean
+            username: String,
+            password: String
         },
         {timestamps: true}
     );
@@ -14,6 +13,6 @@ export default (mongoose) => {
         return object;
     });
 
-    const Task = mongoose.model("task",schema);
-    return Task;
+    const User = mongoose.model("user",schema);
+    return User;
 }

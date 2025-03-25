@@ -1,13 +1,18 @@
 import React, {useEffect ,useState} from "react";
 import TaskService from "../services/task.service.js";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
-function TaskList(){
+function TaskList({loggedInUser}){
+    const navigate = useNavigate();
     const [tasks, setTasks] = useState([]);
     const [currentTask,setCurrentTask] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [searchTitle, setSearchTitle] = useState("");
     const [completedSearch, setCompletedSearch] = useState(false);
+
+    useEffect(() => {
+      if (loggedInUser == null){navigate("/login")};
+    }, [loggedInUser]);
 
     useEffect(() => {
         retrieveTasks();

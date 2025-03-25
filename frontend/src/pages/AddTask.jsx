@@ -1,10 +1,17 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import TaskService from "../services/task.service";
+import {useNavigate} from "react-router-dom";
 
-function AddTask(){
+function AddTask({loggedInUser}){
+
+    const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [submitted, setSubmitted] = useState(false);
+
+    useEffect(() => {
+        if (loggedInUser == null){navigate("/login")};
+      }, [loggedInUser]);
 
     const saveTask = () => {
         const data = {title,description};

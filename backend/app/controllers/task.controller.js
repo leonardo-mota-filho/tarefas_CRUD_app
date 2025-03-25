@@ -16,7 +16,7 @@ export const create = (req,res) => {
     const task = new Task({
         title: req.body.title,
         description: req.body.description,
-        published: req.body.published ? req.body.published : false
+        completed: req.body.completed ? req.body.completed : false
     })
 
     //Guardar uma Task no db
@@ -131,9 +131,9 @@ export const deleteAll = (req,res) => {
         });
 };
 
-//Encontrar todas as Tasks
-export const findAllPublished = (req,res) => {
-    Task.find({published: true})
+//Encontrar todas as Tasks completadas
+export const findAllCompleted = (req,res) => {
+    Task.find({completed: true})
         .then(data => {
             res.send(data);
         })
