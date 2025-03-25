@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import TaskService from "../services/task.service";
+import UserService from "../services/user.service";
 import axios from 'axios'
 
 function Login(){
@@ -8,11 +8,19 @@ function Login(){
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
 
-    const handleLogin = (e) => {
-        e.preventDefault()
-        axios.post('',{username,password})
-        .then(result => console.log(result))
-        .catch(err => console.log(err))
+    const handleLogin = () => {
+        const data = {username,password}
+        UserService.authenticateUser(data)
+            .then((response) => {
+                if(response.data["result"] == true){
+                    console.log("Login Realizado!")
+                } else{
+                    console.log("Usuário e/ou senha incorretos.");
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            })
     }
 
     return (
@@ -47,8 +55,8 @@ function Login(){
                 >
                     Login
                 </button>
-                <div class="relative size-0 ...">
-                    <div class="absolute -right-105 -bottom-43 size-50 ...">
+                <div className="relative size-0 ...">
+                    <div className="absolute -right-105 -bottom-43 size-50 ...">
                         <Link to="/register" className="hover:text-gray-300">
                             Não possuo conta.
                         </Link>
