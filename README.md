@@ -22,6 +22,6 @@
 
 ## **Outras Features que serão implementadas**
 
-  - Sistema de cadastro e login com autenticação de usuário
+  - Sistema de autenticação com tokens, para maior segurança e privacidade
   - Edição de perfil do usuário
   - Deploy do sistema utilizando Vercel e Render
