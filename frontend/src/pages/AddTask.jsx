@@ -10,8 +10,8 @@ function AddTask({loggedInUser}){
     const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
-          if (loggedInUser == null){navigate("/login")};
-        }, []);
+        if (loggedInUser == null){navigate("/login")};
+      }, [loggedInUser]);
 
     const saveTask = () => {
         const data = {title,description};

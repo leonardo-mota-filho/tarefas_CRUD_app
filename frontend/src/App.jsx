@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 function App() {
   const [loggedInUser,setLoggedInUser] = useState(null);
 
+
   const handleLogout = () => {
     //localStorage.removeItem('token') (para quando os tokens estiverem funcionais)
     setLoggedInUser(null);

@@ -12,6 +12,9 @@ function TaskList({loggedInUser}){
 
     useEffect(() => {
       if (loggedInUser == null){navigate("/login")};
+    }, [loggedInUser]);
+
+    useEffect(() => {
         retrieveTasks();
     }, []);
 

@@ -11,7 +11,7 @@ function Profile({loggedInUser}){
     });
     useEffect(() => {
            getUser();
-       }, []);
+       }, [loggedInUser]);
 
     const getUser = () => {
         if (loggedInUser == null){navigate("/login")}

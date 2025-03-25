@@ -16,7 +16,7 @@ function Task({loggedInUser}){
 
     useEffect(() => {
         if (loggedInUser == null){navigate("/login")};
-      }, []);
+      }, [loggedInUser]);
 
     const getTask = (id) => {
         TaskService.get(id)
